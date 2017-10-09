@@ -11,22 +11,58 @@ public class DoubleStackImpl implements DoubleStack {
         empty = true;
     }
 
-    public void push(Double number){
+    public void extendStackSize() {
+        Double[] newStack = new Double[stack.length * 2];
 
+        System.arraycopy(stack, 0, newStack, 0, stack.length);
+        stack = newStack;
     }
 
-    public Double pop(){
+    public void push(Double element){
+        if (pointer >= stack.length -1) {
+            extendStackSize();
+        }
 
-        return  null;
+        stack[pointer] = element;
+        pointer++;
+        empty = false;
     }
 
-    public Double top(){
+    public Double pop() {
+        if (empty) {
+            return null;   
+        }
 
-        return null;
+        pointer--;
+
+        if(pointer == 0) {
+            empty = true;
+        }
+
+        return stack[pointer];
     }
 
-    public int size(){
+    public Double top() {
+        if (empty) {
+            return null;
+        }
 
-        return 0;
+        return (stack[pointer - 1]);
+    }
+
+    public int size() {
+        if (empty) {
+            return 0;
+        }
+
+        return (pointer - 1);
+    }
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public int getPointer() {
+        return pointer;
     }
 }

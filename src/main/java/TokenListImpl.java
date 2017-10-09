@@ -27,7 +27,11 @@ public class TokenListImpl implements TokenList{
      *       preserving the previous order.
      */
 	public void add(Token token ) {
-
+		if (size() >= tokens.length) {
+			extendListSize();
+		}
+		tokens[pointer] = token;
+		pointer++;
 	}
 
 	/**
@@ -35,7 +39,15 @@ public class TokenListImpl implements TokenList{
      * @post The element at location 'index' has been removed, preserving the previous order. The size of the TokenList has been reduced by 1.
      */
     public void remove(int index) {
+    	if (index >= size() | index <= 0) {
+    		return;
+    	}
 
+    	for (int i = index; i < pointer; i++) {
+    		tokens[i] = tokens[i + 1];
+    	}
+
+    	pointer--;
     }
 	
 	/**
@@ -45,7 +57,11 @@ public class TokenListImpl implements TokenList{
      * @post  The element at location 'index' has the value 'token', preserving the previous order.
      */
     public void set(int index, Token token) {
+    	if (index >= size()) {
+    		return;
+    	}
 
+    	tokens[index] = token;
     }
 
     /**
@@ -55,7 +71,12 @@ public class TokenListImpl implements TokenList{
      * @post The element at index 'index' has been returned.
      */
     public Token get(int index) {
-		return null;
+    	if (index < size()) {
+    		return tokens[index];
+    	}
+    	else {
+    		return tokens[size() - 1];
+    	}
     }
 
     /**
@@ -63,6 +84,18 @@ public class TokenListImpl implements TokenList{
      * @post The number of elements in the list has been returned.
      */
     public int size() {
-    	return 0;
+    	return pointer;
     }
+
+	private Token pop(){
+		if (pointer > 0){
+			
+			pointer--;
+			return tokens[pointer + 1];
+		}
+		else {
+			return tokens[0];
+		}
+	}
+		
 }

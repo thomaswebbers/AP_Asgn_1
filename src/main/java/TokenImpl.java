@@ -14,6 +14,7 @@ public class TokenImpl implements Token {
 	public TokenImpl(char inputToken) {
 		token = inputToken;
         precedence = 0;
+		parseType();
 	}
 
 	/**
@@ -50,5 +51,37 @@ public class TokenImpl implements Token {
     public static String getParenthesisList(){
         return PARENTHESIS_LIST;
     }
+
+    private void parseType() {
+    	if (OPERATOR_LIST.contains(String.valueOf(token))) {
+    		type = OPERATOR_TYPE;
+            parseOperator();
+    	}
+    	else if (PARENTHESIS_LIST.contains(String.valueOf(token))) {
+    		type = PARENTHESIS_TYPE;
+            precedence = 3;
+    	}
+    }
+
+    private void parseOperator() {
+        switch (token) {
+            case ADDITION:
+                precedence = 0;
+                break;
+            case SUBTRACTION:
+                precedence = 0;
+                break;
+            case MULTIPLICATION:
+                precedence = 1;
+                break;
+            case DIVISION:
+                precedence = 1;
+                break;
+            case POWER:
+                precedence = 2;
+                break;
+        }
+    }
+
 }
 

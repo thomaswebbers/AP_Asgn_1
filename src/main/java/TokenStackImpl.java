@@ -19,23 +19,53 @@ public class TokenStackImpl implements TokenStack {
     }
 
     public void push(Token element){
+        if (pointer >= stack.length -1) {
+            extendStackSize();
+        }
 
+        stack[pointer] = element;
+        pointer = pointer + 1;
+        empty = false;
     }
 
     public Token pop() {
-       return null;
+        if (empty) {
+            return null;
+        }
+        pointer--;
+
+        if(pointer == 0) {
+            empty = true;
+        }
+        return stack[pointer];
     }
 
     public Token top() {
-       return null;
+        if (empty) {
+            return null;
+        }
+
+        return (stack[pointer - 1]);
     }
 
     public int size() {
-        return 0;
+        if (empty) {
+            return 0;
+        }
+
+        return (pointer);
     }
 
     public String debug(int i){
         Token token = stack[i];
         return token.getValue();
+    }
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public int getPointer() {
+        return pointer;
     }
 }

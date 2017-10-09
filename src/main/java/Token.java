@@ -1,6 +1,7 @@
 /**
- * Token interface. 
- * @elements characters
+ * Token interface. Extends the Comparable interface. compareTo should compare
+ * the priority of the tokens.
+ * @elements characters of type char
  * @structure linear
  * @domain all rows of characters
  */
